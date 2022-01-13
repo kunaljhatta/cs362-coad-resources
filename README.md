@@ -26,12 +26,13 @@ Next, set up the database:
 ```
 rails db:setup
 ```
-
-If you want, you can create some seed data in the database:
+There is no need to run next command.
 
 ```
 rails db:seed
 ```
+Reason is the rails db:setup will implicitly 
+runs seed. 
 
 Start the app:
 
