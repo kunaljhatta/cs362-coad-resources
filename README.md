@@ -6,7 +6,7 @@ made available by members of Community Organizations Active in Disaster.
 
 ## Development
 
-Clone the repository:
+Fork and then Clone the repository:
 
 ```
 git clone git@github.com:osu-cascades/coad-resources.git
