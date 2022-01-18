@@ -14,7 +14,7 @@ git clone git@github.com:osu-cascades/coad-resources.git
 
 This is a Rails application that uses SQLite in development and PostgreSQL in production.
 
-Install the dependencies:
+From the project direcotry, install the dependencies:
 
 ```
 gem install bundler
