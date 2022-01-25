@@ -6,7 +6,7 @@ made available by members of Community Organizations Active in Disaster.
 
 ## Development
 
-Fork and then Clone the repository:
+1. Fork and then Clone the repository:
 
 ```
 git clone git@github.com:osu-cascades/coad-resources.git
@@ -14,13 +14,13 @@ git clone git@github.com:osu-cascades/coad-resources.git
 
 This is a Rails application that uses SQLite in development and PostgreSQL in production.
 
-From the project direcotry, install the dependencies:
+2. From the project directory, install the dependencies:
 
 ```
 gem install bundler
 bundle install
 ```
-Copy the .env.example file to .env, and add admin/test email and password.
+3. Copy the .env.example file to .env, and add admin/test email and password.
 
 To copy the file: 
 
@@ -35,7 +35,7 @@ TEST_USER_EMAIL='changeme@changeme.com'
 TEST_USER_PASSWORD='CHANGEME`
 ```
 
-Next, set up the database:
+4. set up the database:
 
 ```
 rails db:setup
@@ -48,7 +48,7 @@ rails db:seed
 Reason is the rails db:setup will implicitly 
 runs seed. 
 
-Start the app:
+5. Start the app:
 
 ```
 rails server
