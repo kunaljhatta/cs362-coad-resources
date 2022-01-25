@@ -123,4 +123,4 @@ Recaptcha
 ![erd](public/documentation/erd.jpg?raw=true)
 
 
-&copy; 2022 Kunal Jhatta, Ryder McDowell. All rights reserved.
+&copy; 2022 Kunal Jhatta, Paul Koos. All rights reserved.
