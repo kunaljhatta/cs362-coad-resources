@@ -20,6 +20,20 @@ From the project direcotry, install the dependencies:
 gem install bundler
 bundle install
 ```
+Copy the .env.example file to .env, and add admin/test email and password.
+
+To copy the file: 
+
+```
+cp .env.example .env
+```
+Change the following fields: 
+```
+DEFAULT_PASSWORD='CHANGEME'
+ADMINS='{admin_name: "changeme@changeme.com" }'
+TEST_USER_EMAIL='changeme@changeme.com'
+TEST_USER_PASSWORD='CHANGEME`
+```
 
 Next, set up the database:
 
