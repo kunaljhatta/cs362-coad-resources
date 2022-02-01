@@ -20,11 +20,19 @@ RSpec.describe ResourceCategory, type: :model do
   end
 
 
-  describe "method" do
-    it "returns its name when to_s is called" do
+  describe "method" do # bad test
+    it "to_s returns its name when called" do
       fake_name = "Fake Category"
       resource_category = ResourceCategory.new(name:fake_name)
       expect(resource_category.to_s).to eq(fake_name)
+    end
+
+    it "has :active scope when active is true" do
+      resource_category = ResourceCategory.new
+      resource_category.deactivate
+      expect(resource_category.active).not_to be_truthy
+      resource_category.activate
+      expect(resource_category.active).to be_truthy
     end
   end
 end
