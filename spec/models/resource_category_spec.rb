@@ -34,5 +34,18 @@ RSpec.describe ResourceCategory, type: :model do
       resource_category.activate
       expect(resource_category.active).to be_truthy
     end
+
+    it "sets active value to true when instantiated" do
+      resource_category = ResourceCategory.new
+      expect(resource_category.active?).to be_truthy
+      expect(resource_category.inactive?).not_to be_truthy
+    end
+
+    it "sets active to false when deactivate is called" do
+      resource_category = ResourceCategory.new
+      resource_category.deactivate
+      expect(resource_category.inactive?).to be_truthy
+      expect(resource_category.active?).not_to be_truthy
+    end
   end
 end
