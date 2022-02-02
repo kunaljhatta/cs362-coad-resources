@@ -41,7 +41,10 @@ RSpec.describe User, type: :model do
       dup = User.new(email:same_email, password:"pass1333")
       expect(dup).to be_invalid
     end
-    it "validates length of password"
+    it "validates length of password" do 
+      expect(User.new(email:"fake@fake.com", password:"short")).to be_invalid
+      expect(User.new(email:"fake@fake.com", password:"looooooooong11888111111122223454354575645685645doilknawefsodinjkeawfoisnawerjngfvjknawoierfjaoijiooinfakjwefaofoaefnoinoninoinooohdiniiiioibjnmoijoijmonioinonoakfnaskldfnoawifskldmojirweklafsmdoilknjkeawfoisnawerjngfvjknawjdjdjksjoierfjaoijiooiononoinoeoif")).to be_invalid
+    end
   end
 
 end
