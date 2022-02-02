@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   describe "attributes" do
-    
+
     fake_email = "fake@fake.com"
     fake_pass = "pass1234"
 
@@ -23,13 +23,9 @@ RSpec.describe User, type: :model do
 
   describe "validations" do
 
-    it "validates length of email" do
-      # user = User.new()  # (email:"fake@fake.com", password:"fake1234")
-      # it { user.should validate_length_of(:email) }
-      too_short_email = ""
-      too_long_email = "obijmonioinonoakfnaskldfnoawifskldmojirweklafsmdoilknawefsodinjkeawfoisnawerjngfvjknawoierfjaoijiooinfakjwefaofoaefnoinoninoinooohdiniiiioibjnmoijoijmonioinonoakfnaskldfnoawifskldmojirweklafsmdoilknjkeawfoisnawerjngfvjknawjdjdjksjoierfjaoijiooiono@fake.com"
-      expect(User.new(email:too_short_email, password:"fake1234")).to be_invalid
-      expect(User.new(email:too_long_email, password:"fake1234")).to be_invalid
+    describe "validates length of email" do
+      user = User.new(email:"fake@fake.com", password:"fake1234")
+      it { user.should validate_length_of(:email) }
     end
 
     it "validates email format" do
