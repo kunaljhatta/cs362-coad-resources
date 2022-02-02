@@ -24,7 +24,10 @@ RSpec.describe User, type: :model do
       too_long_email = "obijmonioinonoakfnaskldfnoawifskldmojirweklafsmdoilknawefsodinjkeawfoisnawerjngfvjknawoierfjaoijiooinfakjwefaofoaefnoinoninoinooohdiniiiioibjnmoijoijmonioinonoakfnaskldfnoawifskldmojirweklafsmdoilknjkeawfoisnawerjngfvjknawjdjdjksjoierfjaoijiooiono@fake.com"
       expect(User.new(email:too_long_email, password:"fake1234")).to be_invalid
     end
-    it "validates email format"
+    it "validates email format" do
+      expect(User.new(email:"noAtSymbol", password:"fake1234")).to be_invalid
+      expect(User.new(email:"noDot@fake", password:"fake1234")).to be_invalid
+    end
     it "validates uniqueness of email"
     it "validates length of password"
   end
