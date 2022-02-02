@@ -25,8 +25,14 @@ RSpec.describe User, type: :model do
       expect(User.new(email:too_long_email, password:"fake1234")).to be_invalid
     end
     it "validates email format" do
-      expect(User.new(email:"noAtSymbol", password:"fake1234")).to be_invalid
+      expect(User.new(email:"noSymbols", password:"fake1234")).to be_invalid
+      expect(User.new(email:"noAtSymbol.com", password:"fake1234")).to be_invalid
+      expect(User.new(email:"twoAts@@.com", password:"fake1234")).to be_invalid
       expect(User.new(email:"noDot@fake", password:"fake1234")).to be_invalid
+      expect(User.new(email:"wrongOrder.@com", password:"fake1234")).to be_invalid
+      expect(User.new(email:"icon'@fake.fake", password:"fake1234")).to be_invalid
+      expect(User.new(email:"icon!@fake.fake", password:"fake1234")).to be_invalid
+      expect(User.new(email:'icon"@fake.fake', password:"fake1234")).to be_invalid
     end
     it "validates uniqueness of email"
     it "validates length of password"
