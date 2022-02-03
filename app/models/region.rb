@@ -9,7 +9,7 @@ class Region < ApplicationRecord
   def self.unspecified
     Region.find_or_create_by(name: 'Unspecified')
   end
-
+  
   def to_s
     name
   end
