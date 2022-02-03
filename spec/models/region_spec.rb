@@ -6,3 +6,10 @@ RSpec.describe Region, type: :model do
     end
 end
 
+describe "attributes" do 
+    it "has a name" do
+      region = Region.new
+      expect(region).to respond_to(:name)
+    end
+end
+
