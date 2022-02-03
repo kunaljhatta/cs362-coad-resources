@@ -77,8 +77,11 @@ RSpec.describe User, type: :model do
       user.set_default_role
       expect(user.role).to eq("organization")
     end
-    
-    it "returns the user's email"
+
+    it "returns the user's email" do
+      user = User.new(email:"fake@fake.com", password:"fake1234")
+      expect(user.to_s).to eq(user.email)
+    end
   
   end
 
