@@ -67,4 +67,13 @@ RSpec.describe User, type: :model do
 
   end
 
+  
+  describe "methods" do
+    
+    it "sets role to default role if a role is not already set"
+    it "returns the user's email"
+  
+  end
+
+
 end
