@@ -2,9 +2,14 @@ require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
   describe "attributes" do
-    it "name is not blank" do
+    it "resource category is valid when name is not blank" do
       resource_category = ResourceCategory.new(name:"Fake Name")
       expect(resource_category).to be_valid
+    end
+
+    it "resource category is not valid with blank name" do
+      resource_category = ResourceCategory.new
+      expect(resource_category).not_to be_valid
     end
 
     it "name is unique" do
