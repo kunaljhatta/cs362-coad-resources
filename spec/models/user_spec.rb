@@ -2,23 +2,27 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  describe "factory" 
+  let(:user) { build(:user) } 
+
+  it "factory" do
+    expect(user).to be_valid
+    expect(build(:user, email:nil).email).to eq(nil)
+    expect(build(:user, password:nil).password).to eq(nil)
+    # expect(build(:user, :no_email)).to be_invalid
+  end
 
   describe "attributes" do
 
-    fake_email = "fake@fake.com"
-    fake_pass = "pass1234"
-
     it "is valid with valid attributes" do
-      expect(User.new(email:fake_email, password:fake_pass)).to be_valid
+      expect(user).to be_valid
     end
 
     it "is not valid without an email" do
-      expect(User.new(password:fake_pass)).to be_invalid
+      expect(build(:user, email:nil)).to be_invalid
     end
 
     it "is not valid without a password" do
-      expect(User.new(email:fake_email)).to be_invalid
+      expect(build(:user, password:nil)).to be_invalid
     end
 
   end
@@ -26,7 +30,6 @@ RSpec.describe User, type: :model do
   describe "validations" do
 
     describe "validates length of email" do
-      user = User.new(email:"fake@fake.com", password:"fake1234")
       it { user.should validate_length_of(:email) }
     end
 
@@ -42,12 +45,10 @@ RSpec.describe User, type: :model do
     end
 
     describe "validates uniqueness of email" do
-      user = User.new(email:"fake@fake.com", password:"fake1234")
       it { user.should validate_uniqueness_of(:email).case_insensitive }
     end
 
     describe "validates length of password" do
-      user = User.new(email:"fake@fake.com", password:"fake1234")
       it { user.should validate_length_of(:password) }
     end
 
@@ -56,15 +57,7 @@ RSpec.describe User, type: :model do
   describe "associations" do
 
     describe "may belong to organization" do
-      user = User.new(email:"fake@fake.com", password:"fake1234")
       it { user.should belong_to(:organization) } 
-    end
-
-    it "is optional to belong to organization" do
-      user = User.new(email:"fake@fake.com", password:"fake1234")
-      user.role = nil
-      expect(user.role).to eq(nil) 
-      expect(user).to be_valid
     end
 
   end
@@ -72,7 +65,6 @@ RSpec.describe User, type: :model do
   describe "methods" do
     
     it "sets role to default role if a role is not already set" do
-      user = User.new(email:"fake@fake.com", password:"fake1234")
       user.set_default_role
       expect(user.role).to eq("organization")
       user.role = nil
@@ -81,7 +73,6 @@ RSpec.describe User, type: :model do
     end
 
     it "returns the user's email" do
-      user = User.new(email:"fake@fake.com", password:"fake1234")
       expect(user.to_s).to eq(user.email)
     end
   
