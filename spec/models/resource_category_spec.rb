@@ -55,7 +55,7 @@ RSpec.describe ResourceCategory, type: :model do
     end
 
     it "using activate method will set active to true" do
-      resource_category = ResourceCategory.new(active=false)
+      resource_category = ResourceCategory.new(active:false)
       resource_category.activate
       expect(resource_category.active).to be_truthy
     end
@@ -64,6 +64,26 @@ RSpec.describe ResourceCategory, type: :model do
       resource_category = ResourceCategory.new
       resource_category.deactivate
       expect(resource_category.active).to be_falsy
+    end
+
+    it "inactive? returns true when active is false" do
+      resource_category = ResourceCategory.new
+      expect(resource_category.inactive?).not_to be_truthy
+    end
+
+    it "inactive? returns false when active is true" do
+      resource_category = ResourceCategory.new(active:true)
+      expect(resource_category.inactive?).to be_falsy
+    end
+
+    it "active? returns true when category is active" do
+      resource_category = ResourceCategory.new(active:true)
+      expect(resource_category.active?).to be_truthy
+    end
+
+    it "active? returns false when category is inactive" do
+      resource_category = ResourceCategory.new(active:false)
+      expect(resource_category.active?).to be_falsy
     end
 
     it "to_s returns its name when called" do
