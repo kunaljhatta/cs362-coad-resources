@@ -59,7 +59,9 @@ RSpec.describe User, type: :model do
     end
 
     it "is optional to belong to organization" do
-      user = User.new(email:"fake@fake.com", password:"fake1234", role: nil)
+      user = User.new(email:"fake@fake.com", password:"fake1234")
+      user.role = nil
+      expect(user.role).to eq(nil) 
       expect(user).to be_valid
     end
 
