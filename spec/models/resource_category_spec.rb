@@ -48,7 +48,24 @@ RSpec.describe ResourceCategory, type: :model do
   end
 
 
-  describe "method" do # bad test
+  describe "method" do
+    it "using unspecified will return category with name 'Unspecified'" do
+      resource_category = ResourceCategory.unspecified
+      expect(resource_category.name).to eq("Unspecified")
+    end
+
+    it "using activate method will set active to true" do
+      resource_category = ResourceCategory.new(active=false)
+      resource_category.activate
+      expect(resource_category.active).to be_truthy
+    end
+
+    it "using deactivate will set active to false" do
+      resource_category = ResourceCategory.new
+      resource_category.deactivate
+      expect(resource_category.active).to be_falsy
+    end
+
     it "to_s returns its name when called" do
       fake_name = "Fake Category"
       resource_category = ResourceCategory.new(name:fake_name)
