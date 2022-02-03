@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
+  describe "factory" 
+
   describe "attributes" do
 
     fake_email = "fake@fake.com"
