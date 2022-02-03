@@ -34,14 +34,14 @@ RSpec.describe User, type: :model do
     end
 
     it "validates email format" do
-      expect(User.new(email:"noSymbols", password:"fake1234")).to be_invalid
-      expect(User.new(email:"noAtSymbol.com", password:"fake1234")).to be_invalid
-      expect(User.new(email:"twoAts@@.com", password:"fake1234")).to be_invalid
-      expect(User.new(email:"noDot@fake", password:"fake1234")).to be_invalid
-      expect(User.new(email:"wrongOrder.@com", password:"fake1234")).to be_invalid
-      expect(User.new(email:"icon'@fake.fake", password:"fake1234")).to be_invalid
-      expect(User.new(email:"icon!@fake.fake", password:"fake1234")).to be_invalid
-      expect(User.new(email:'icon"@fake.fake', password:"fake1234")).to be_invalid
+      expect(build(:user, email:"noSymbols")).to be_invalid
+      expect(build(:user, email:"noAtSymbol.com")).to be_invalid
+      expect(build(:user, email:"twoAts@@.com")).to be_invalid
+      expect(build(:user, email:"noDot@fake")).to be_invalid
+      expect(build(:user, email:"wrongOrder.@com")).to be_invalid
+      expect(build(:user, email:"icon'@fake.fake")).to be_invalid
+      expect(build(:user, email:"icon!@fake.fake")).to be_invalid
+      expect(build(:user, email:'icon"@fake.fake')).to be_invalid
     end
 
     describe "validates uniqueness of email" do
