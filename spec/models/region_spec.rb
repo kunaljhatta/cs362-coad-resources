@@ -8,7 +8,7 @@ RSpec.describe Region, type: :model do
         end
 
     describe "attributes" do 
-        it "has a name" do
+        it "has a 4name" do
             region = Region.new
             expect(region).to respond_to(:name)
         end
@@ -41,9 +41,13 @@ RSpec.describe Region, type: :model do
           expect(region).to validate_presence_of(:name)
         end
     
-        it "validates name length" do
-          expect(region).to validate_length_of(:name).is_at_least(1).is_at_most(255)
+        it "validates name length minimum" do
+          expect(region).to validate_length_of(:name).is_at_least(1)
         end
+
+        it "validates name length maximum" do
+            expect(region).to validate_length_of(:name).is_at_most(255)
+          end
         
         it "validates name uniqueness" do
           expect(region).to validate_uniqueness_of(:name).case_insensitive
