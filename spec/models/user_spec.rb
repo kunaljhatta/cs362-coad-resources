@@ -4,13 +4,6 @@ RSpec.describe User, type: :model do
 
   let(:user) { build(:user) } 
 
-  it "factory" do
-    expect(user).to be_valid
-    expect(build(:user, email:nil).email).to eq(nil)
-    expect(build(:user, password:nil).password).to eq(nil)
-    # expect(build(:user, :no_email)).to be_invalid
-  end
-
   describe "attributes" do
 
     it "is valid with valid attributes" do
@@ -72,7 +65,7 @@ RSpec.describe User, type: :model do
       expect(user.role).to eq("organization")
     end
 
-    it "returns the user's email" do
+    it "to_s returns the user's email" do
       expect(user.to_s).to eq(user.email)
     end
   
