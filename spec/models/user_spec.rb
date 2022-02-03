@@ -39,12 +39,9 @@ RSpec.describe User, type: :model do
       expect(User.new(email:'icon"@fake.fake', password:"fake1234")).to be_invalid
     end
 
-    it "validates uniqueness of email" do
-      same_email = "same@same.same"
-      original = User.create!(email:same_email, password:"pass1222")
-      expect(original).to be_valid
-      dup = User.new(email:same_email, password:"pass1333")
-      expect(dup).to be_invalid
+    describe "validates uniqueness of email" do
+      user = User.new(email:"fake@fake.com", password:"fake1234")
+      it { user.should validate_uniqueness_of(:email).case_insensitive }
     end
 
     describe "validates length of password" do
