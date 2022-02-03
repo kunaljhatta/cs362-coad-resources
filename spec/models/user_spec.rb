@@ -51,4 +51,9 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe "associations" do
+    user = User.new(email:"fake@fake.com", password:"fake1234")
+    it { user.should belong_to(:organization).optional } 
+  end
+
 end
