@@ -1,6 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
+  describe "attributes" do
+    it "name is not blank" do
+      resource_category = ResourceCategory.new(name:"Fake Name")
+      expect(resource_category).to be_valid
+    end
+
+    it "name is unique" do
+      category_name = "Fake Category"
+      resource_category = ResourceCategory.create(name: category_name)
+      resource_dup_name = ResourceCategory.new(name: category_name)
+      expect(resource_dup_name).to be_invalid
+    end  
+  end
+
+
   describe "instantiation" do
     it "exists" do
       ResourceCategory
