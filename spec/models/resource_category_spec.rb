@@ -12,7 +12,7 @@ RSpec.describe ResourceCategory, type: :model do
       expect(resource_category).not_to be_valid
     end
 
-    it "name is unique" do
+    it "category requires name is unique" do
       category_name = "Fake Category"
       resource_category = ResourceCategory.create(name: category_name)
       resource_dup_name = ResourceCategory.new(name: category_name)
@@ -92,25 +92,13 @@ RSpec.describe ResourceCategory, type: :model do
       expect(resource_category.to_s).to eq(fake_name)
     end
 
-    it "has :active scope when active is true" do
-      resource_category = ResourceCategory.new
-      resource_category.deactivate
-      expect(resource_category.active).not_to be_truthy
-      resource_category.activate
-      expect(resource_category.active).to be_truthy
+    it ":active scope returns all active Resource categories", skip:true do
+      pending
     end
 
-    it "sets active value to true when instantiated" do
-      resource_category = ResourceCategory.new
-      expect(resource_category.active?).to be_truthy
-      expect(resource_category.inactive?).not_to be_truthy
+    it ":inactive scope returns all inactive categories", skip:true do
+      pending
     end
 
-    it "sets active to false when deactivate is called" do
-      resource_category = ResourceCategory.new
-      resource_category.deactivate
-      expect(resource_category.inactive?).to be_truthy
-      expect(resource_category.active?).not_to be_truthy
-    end
   end
 end
