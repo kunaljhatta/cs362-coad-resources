@@ -52,8 +52,17 @@ RSpec.describe User, type: :model do
   end
 
   describe "associations" do
-    user = User.new(email:"fake@fake.com", password:"fake1234")
-    it { user.should belong_to(:organization).optional } 
+
+    describe "may belong to organization" do
+      user = User.new(email:"fake@fake.com", password:"fake1234")
+      it { user.should belong_to(:organization) } 
+    end
+
+    it "is optional to belong to organization" do
+      user = User.new(email:"fake@fake.com", password:"fake1234", role: nil)
+      expect(user).to be_valid
+    end
+
   end
 
 end
