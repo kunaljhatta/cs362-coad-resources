@@ -72,8 +72,9 @@ RSpec.describe User, type: :model do
     
     it "sets role to default role if a role is not already set" do
       user = User.new(email:"fake@fake.com", password:"fake1234")
+      user.set_default_role
+      expect(user.role).to eq("organization")
       user.role = nil
-      expect(user.role).to eq(nil)
       user.set_default_role
       expect(user.role).to eq("organization")
     end
