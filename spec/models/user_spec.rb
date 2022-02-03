@@ -67,7 +67,6 @@ RSpec.describe User, type: :model do
 
   end
 
-  
   describe "methods" do
     
     it "sets role to default role if a role is not already set" do
@@ -84,6 +83,5 @@ RSpec.describe User, type: :model do
     end
   
   end
-
 
 end
