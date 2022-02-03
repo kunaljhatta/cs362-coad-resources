@@ -23,8 +23,16 @@ RSpec.describe ResourceCategory, type: :model do
   end
 
   describe "associations" do
-    resource_category = ResourceCategory.new
-    specify { resource_category.should have_and_belong_to_many(:organizations) }
+    it "has and belongs to many :organizations" do
+      resource_category = ResourceCategory.new
+      expect { resource_category.should have_and_belong_to_many(:organizations) }
+    end
+
+    it "has many tickets" do
+      resource_category = ResourceCategory.new
+      expect { resource_category.should have_many(:tickets) }
+    end
+
   end
 
   describe "validations" do
