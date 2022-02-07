@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Region, type: :model do
-    
+    let(:rg) { build(:region) }
+
     let(:region){ Region.new(name: 'Fake Region')}
         it 'exists' do
             Region
@@ -65,7 +66,6 @@ RSpec.describe Region, type: :model do
             expect(region).to be_valid
             expect(duplicate_region).to be_invalid
         end 
-
       end
       
 end
