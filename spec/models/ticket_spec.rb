@@ -10,10 +10,21 @@ RSpec.describe Ticket, type: :model do
       expect(ticket).to be_valid
     end
     
-    it "is not valid without a name"
-    it "is not valid without a phone number"
-    it "is not valid without a region id"
-    it "is not valid without a resource category id"
+    it "is not valid without a name" do
+      expect(build_stubbed(:ticket, name: nil)).to be_invalid
+    end
+
+    it "is not valid without a phone number" do 
+      expect(build_stubbed(:ticket, phone: nil)).to be_invalid
+    end
+
+    it "is not valid without a region id" do
+      expect(build_stubbed(:ticket, region_id: nil)).to be_invalid
+    end
+
+    it "is not valid without a resource category id" do
+      expect(build_stubbed(:ticket, resource_category_id: nil)).to be_invalid
+    end
   
   end
 
