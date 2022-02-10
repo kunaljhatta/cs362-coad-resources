@@ -30,9 +30,15 @@ RSpec.describe Ticket, type: :model do
 
   describe "validations" do
 
-    it "validates length of name"
-    it "validates length of description"
-    it "validates plausibility of phone"
+    describe "validates length of name" do
+      it { ticket.should validate_length_of(:name) }
+    end
+
+    describe "validates length of description" do
+      it { ticket.should validate_length_of(:description) }
+    end 
+
+    describe "validates plausibility of phone" 
 
   end
 
