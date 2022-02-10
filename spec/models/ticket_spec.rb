@@ -42,4 +42,12 @@ RSpec.describe Ticket, type: :model do
 
   end
 
+  describe "associations" do
+    
+    describe "belongs to region"
+    describe "belongs to resource_category"
+    describe "may belong to organization"
+
+  end
+
 end
