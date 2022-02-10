@@ -1,22 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
+  let(:build_category) { FactoryBot.build(:resource_category) }
+  let(:stubbed_category) {FactoryBot.build_stubbed(:resource_category) }
+  let(:create_cat) { create(:resource_category) }
+
   describe "attributes" do
     it "resource category is valid when name is not blank" do
-      resource_category = ResourceCategory.new(name:"Fake Name")
-      expect(resource_category).to be_valid
+      expect(build_category).to be_valid
     end
 
     it "resource category is not valid with blank name" do
-      resource_category = ResourceCategory.new
-      expect(resource_category).not_to be_valid
+      build_category.name = nil
+      expect(build_category).not_to be_valid
     end
 
     it "category requires name is unique" do
-      category_name = "Fake Category"
-      resource_category = ResourceCategory.create(name: category_name)
-      resource_dup_name = ResourceCategory.new(name: category_name)
-      expect(resource_dup_name).to be_invalid
+      category_name = create_cat.name
+      expect(build_category).to be_invalid
     end  
   end
 
@@ -92,13 +93,13 @@ RSpec.describe ResourceCategory, type: :model do
       expect(resource_category.to_s).to eq(fake_name)
     end
 
-    it ":active scope returns all active Resource categories", skip:true do
-      pending
-    end
+    # it ":active scope returns all active Resource categories", skip:true do
+    #   pending
+    # end
 
-    it ":inactive scope returns all inactive categories", skip:true do
-      pending
-    end
+    # it ":inactive scope returns all inactive categories", skip:true do
+    #   pending
+    # end
 
   end
 end
