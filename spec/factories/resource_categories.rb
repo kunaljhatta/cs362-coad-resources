@@ -1,4 +1,4 @@
-FactoryBot.define do
+FactoryBot.define do 
   factory :resource_category do
 
     transient do
@@ -7,5 +7,9 @@ FactoryBot.define do
 
     sequence(:name) { |n| "Fake Category#{" #{n}" if unique_name}" }
 
+    factory :inactive do
+      active { false }
+    end
+    
   end
 end
