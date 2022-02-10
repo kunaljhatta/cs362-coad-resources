@@ -1,11 +1,13 @@
 FactoryBot.define do
 
-    factory :ticket do
+  factory :ticket do
     name { "fake name" }
-    phone { "1231234567" }
-    region_id { create(:region) }
-    resource_category_id { create(:resource_category) }
     description { "description" }
+    phone { "+13337777777" }
+    closed { false }    
+    region 
+    resource_category 
+    organization_id { 1 } # reduce a database hit by not creating
   end
 
 end
