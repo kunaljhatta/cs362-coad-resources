@@ -28,4 +28,12 @@ RSpec.describe Ticket, type: :model do
   
   end
 
+  describe "validations" do
+
+    it "validates length of name"
+    it "validates length of description"
+    it "validates plausibility of phone"
+
+  end
+
 end
