@@ -5,9 +5,9 @@ FactoryBot.define do
     description { "description" }
     phone { "+13337777777" }
     closed { false }    
-    region 
-    resource_category 
-    organization_id { 1 } # reduce a database hit by not creating
+    association :region, unique_name: true
+    association :resource_category, unique_name: true
+    organization_id { 1 } 
   end
 
 end
