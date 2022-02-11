@@ -38,7 +38,9 @@ RSpec.describe Ticket, type: :model do
       it { ticket.should validate_length_of(:description) }
     end 
 
-    describe "validates plausibility of phone" 
+    it "validates plausibility of phone" do
+      expect(Ticket.validators_on(:phone)).to include(PhonyPlausibleValidator)
+    end
 
   end
 
