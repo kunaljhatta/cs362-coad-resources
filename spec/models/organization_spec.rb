@@ -2,22 +2,23 @@ require 'rails_helper'
 
 RSpec.describe Organization, type: :model do
 
- let(:organization) { Organization.new(
-  name: "FakeName",
-  status: "submitted",
-  phone: "0000000000",
-  email: "fake@fake.com",
-  description: "This is a fake organization",
-  rejection_reason: "Fake Rejection",
-  created_at: DateTime.new(2001,2,3,4,5,6),
-  updated_at: DateTime.new(2001,2,3,4,5,6),
-  liability_insurance: false,
-  primary_name: "1111111111",
-  secondary_name: "FakeSecondName",
-  secondary_phone: "2222222222",
-  title: "FakeTitle",
-  transportation: "no"
- ) }
+let(:organization) { Organization.new(
+    name: "Fake Organization",
+    status: "submitted",
+    phone: "5412205454",
+    email: "fake@fake.com",
+    description: "This is a fake organization",
+    rejection_reason: "Fake Rejection",
+    created_at: DateTime.new(2001,2,3,4,5,6),
+    updated_at: DateTime.new(2001,2,3,4,5,6),
+    liability_insurance: false,
+    primary_name: "FakeName",
+    secondary_name: "FakeSecondName",
+    secondary_phone: "5419002285",
+    title: "FakeTitle",
+    transportation: "no"
+   ) }
+ 
   
  describe "associations" do
   it "has users" do
