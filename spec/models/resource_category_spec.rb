@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
-  let(:build_cat) { FactoryBot.build(:resource_category) }
-  let(:stubbed_cat) {FactoryBot.build_stubbed(:resource_category) }
+  let(:build_cat) { build(:resource_category) }
+  let(:stubbed_cat) { build_stubbed(:resource_category) }
+  let(:stubbed_inactive) { build_stubbed(:inactive) }
   let(:create_cat) { create(:resource_category) }
   let(:unspecified) { ResourceCategory.unspecified }
-  let(:inactive) { FactoryBot.build(:inactive)}
+  let(:inactive) { build(:inactive)}
 
   describe "attributes" do
     it "resource category is valid when name is not blank" do
@@ -36,9 +37,9 @@ RSpec.describe ResourceCategory, type: :model do
   end
 
   describe "validations" do
-    it { build_cat.should validate_presence_of(:name) }
-    it { build_cat.should validate_length_of(:name) }
-    it { build_cat.should validate_uniqueness_of(:name).case_insensitive }
+    it { expect(build_cat).to validate_presence_of(:name) }
+    it { expect(build_cat).to validate_length_of(:name) }
+    it { expect(build_cat).to validate_uniqueness_of(:name).case_insensitive }
   end
 
 
