@@ -34,20 +34,6 @@ RSpec.describe Region, type: :model do
     end
   end
 
-  describe "validators" do
-    it "validates the presence of name" do
-      should validate_presence_of(:name)
-    end
-
-    it "validates the length of name" do
-      should validate_length_of(:name).is_at_least(1).is_at_most(255)
-    end
-
-    it "validates uniqueness of name" do
-      should validate_uniqueness_of(:name).ignoring_case_sensitivity
-    end
-  end
-
   describe "#to_s" do
     it "returns the name" do
       name = 'Mt. Hood'
