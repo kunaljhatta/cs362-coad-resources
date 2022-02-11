@@ -2,10 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Region, type: :model do
 
-  let(:region)  {Region.new(
-    name: "Region"
-  )}
-  
+  let(:region){build(:region)} 
+
   describe "attributes" do 
     it "has a name" do 
       region = Region.new
