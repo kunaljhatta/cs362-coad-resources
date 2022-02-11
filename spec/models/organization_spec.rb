@@ -19,11 +19,19 @@ RSpec.describe Organization, type: :model do
   transportation: "no"
  ) }
   
-  # describe "associations" do
-  #   it "has users" do
-  #     expect(organization).to respond_to(:users)
-  #   end
-  # end
+ describe "associations" do
+  it "has users" do
+    should have_many(:users)
+  end
+
+  it "has tickets" do
+    should have_many(:tickets)
+  end
+  
+  it "has and belongs to many" do
+      should have_and_belong_to_many(:resource_categories)
+  end
+end
 
   describe "attributes" do
     it "has a name" do
