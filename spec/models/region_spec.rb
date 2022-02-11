@@ -13,7 +13,7 @@ RSpec.describe Region, type: :model do
     end
   end
 
-  describe "validators" do
+  describe "validations" do
     it "validates presence of name" do
       should validate_presence_of(:name)
     end

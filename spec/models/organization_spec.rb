@@ -18,6 +18,12 @@ RSpec.describe Organization, type: :model do
   title: "FakeTitle",
   transportation: "no"
  ) }
+  
+  # describe "associations" do
+  #   it "has users" do
+  #     expect(organization).to respond_to(:users)
+  #   end
+  # end
 
   describe "attributes" do
     it "has a name" do
