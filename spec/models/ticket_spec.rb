@@ -61,7 +61,13 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe "methods" do
-    it "checks if ticket is open"
+
+    it "checks if ticket is open" do 
+      expect(ticket.open?).to be_truthy
+      closed_ticket = build(:closed_ticket)
+      expect(closed_ticket.open?).to be_falsey
+    end
+    
     it "checks if ticket is captured"
     it "to_s returns the ticket id"
   end

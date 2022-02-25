@@ -7,7 +7,12 @@ FactoryBot.define do
     closed { false }    
     association :region, unique_name: true
     association :resource_category, unique_name: true
-    organization_id { 1 } 
+    organization_id { 1 }
+    
+    factory :closed_ticket do
+      closed { true }
+    end
+    
   end
 
 end
