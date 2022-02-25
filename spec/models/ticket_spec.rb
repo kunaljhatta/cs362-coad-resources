@@ -67,8 +67,13 @@ RSpec.describe Ticket, type: :model do
       closed_ticket = build(:closed_ticket)
       expect(closed_ticket.open?).to be_falsey
     end
-    
-    it "checks if ticket is captured"
+
+    it "checks if ticket is captured" do
+      expect(ticket.captured?).to be_falsey
+      captured_ticket = build(:captured_ticket)
+      expect(captured_ticket.captured?).to be_truthy
+    end
+
     it "to_s returns the ticket id"
   end
 

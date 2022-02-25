@@ -12,6 +12,10 @@ FactoryBot.define do
     factory :closed_ticket do
       closed { true }
     end
+
+    factory :captured_ticket do
+      organization
+    end
     
   end
 
