@@ -60,4 +60,10 @@ RSpec.describe Ticket, type: :model do
 
   end
 
+  describe "methods" do
+    it "checks if ticket is open"
+    it "checks if ticket is captured"
+    it "to_s returns the ticket id"
+  end
+
 end
