@@ -74,7 +74,10 @@ RSpec.describe Ticket, type: :model do
       expect(captured_ticket.captured?).to be_truthy
     end
 
-    it "to_s returns the ticket id"
+    it "to_s returns the ticket id" do
+      expect(ticket.to_s).to eq("Ticket #{ticket.id}")
+    end
+
   end
 
 end
