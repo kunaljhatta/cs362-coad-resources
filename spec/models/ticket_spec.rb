@@ -61,9 +61,35 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe "methods" do
-    it "checks if ticket is open"
-    it "checks if ticket is captured"
-    it "to_s returns the ticket id"
+
+    it "checks if ticket is open" do 
+      expect(ticket.open?).to be_truthy
+      closed_ticket = build(:closed_ticket)
+      expect(closed_ticket.open?).to be_falsey
+    end
+
+    it "checks if ticket is captured" do
+      expect(ticket.captured?).to be_falsey
+      captured_ticket = build(:captured_ticket)
+      expect(captured_ticket.captured?).to be_truthy
+    end
+
+    it "to_s returns the ticket id" do
+      expect(ticket.to_s).to eq("Ticket #{ticket.id}")
+    end
+
   end
+
+  # describe "scope" do
+
+  #   it ":open scope returns all open tickets"
+  #   it ":closed scope returns all closed tickets"
+  #   it ":all_organizations scope returns all organizations that have a ticket"
+  #   it ":organization scope returns all claimed tickets"
+  #   it ":closed_organization scope returns all closed tickets"
+  #   it ":region scope returns all regions that have tickets"
+  #   it ":resource_category scope returns all resource categories that have tickets"
+
+  # end
 
 end
