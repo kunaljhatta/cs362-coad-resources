@@ -40,13 +40,8 @@ TEST_USER_PASSWORD='CHANGEME`
 ```
 rails db:setup
 ```
-There is no need to run next command.
+There is no need to seed the database as setup does this implicitly.
 
-```
-rails db:seed
-```
-Reason is the rails db:setup will implicitly 
-runs seed. 
 
 5. Start the app:
 
