@@ -86,7 +86,6 @@ RSpec.describe ResourceCategory, type: :model do
       cat2 = create(:resource_category, unique_name: true)
       cat3 = create(:resource_category, unique_name: true)
 
-      byebug
       expect(ResourceCategory.active.count).to eq(3)
 
       cat3.deactivate
@@ -95,9 +94,18 @@ RSpec.describe ResourceCategory, type: :model do
       
     end
 
-    # it ":inactive scope returns all inactive categories", skip:true do
-    #   pending
-    # end
+    it ":inactive scope returns all inactive categories" do
+      cat1 = create(:resource_category, unique_name: true)
+      cat2 = create(:resource_category, unique_name: true)
+      cat3 = create(:resource_category, unique_name: true)
+
+      expect(ResourceCategory.inactive.count).to eq(0)
+
+      cat3.deactivate
+      cat2.deactivate
+      
+      expect(ResourceCategory.inactive.count).to eq(2)
+    end
 
   end
 end
