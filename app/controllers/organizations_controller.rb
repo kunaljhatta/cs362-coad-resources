@@ -40,7 +40,7 @@ class OrganizationsController < ApplicationController
       render :edit
     end
   end
-
+    
   def show
   end
 
