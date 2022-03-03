@@ -19,8 +19,8 @@ RSpec.describe TicketsController, type: :controller do
 
   describe "an unapproved organization user" do
     it "redirects to the dashboard" do
-      unapproved_org = create(:organization)
-      expect(unapproved_org.status).to eq("submitted")
+      unapproved_org = create(:user, :organization_user)
+      # expect(unapproved_org.status).to eq("submitted")
       # sign_in(unapproved_org)
       # log in user as unapproved organization
       # confirm this
