@@ -27,11 +27,11 @@ RSpec.describe ResourceCategory, type: :model do
   describe "associations" do
     it "has and belongs to many :organizations" do
       
-      expect { build_cat.should have_and_belong_to_many(:organizations) }
+      expect { expect(build_cat).to have_and_belong_to_many(:organizations) }
     end
 
     it "has many tickets" do
-      expect { build_cat.should have_many(:tickets) }
+      expect { expect(build_cat).to have_many(:tickets) }
     end
 
   end
