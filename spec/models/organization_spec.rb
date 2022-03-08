@@ -6,15 +6,15 @@ let(:organization) {build(:organization)}
   
  describe "associations" do
   it "has users" do
-    should have_many(:users)
+    expect(organization).to have_many(:users)
   end
 
   it "has tickets" do
-    should have_many(:tickets)
+    expect(organization).to have_many(:tickets)
   end
   
   it "has and belongs to many" do
-      should have_and_belong_to_many(:resource_categories)
+    expect(organization).to have_and_belong_to_many(:resource_categories)
   end
 end
 
@@ -71,54 +71,52 @@ end
 
   describe "validators" do
     it "validate presence of email" do
-      should validate_presence_of(:email)
+      expect(organization).to validate_presence_of(:email)
     end
 
     it "validate presence of name" do
-      should validate_presence_of(:name)
+      expect(organization).to validate_presence_of(:name)
     end
 
     it "validate presence of phone" do
-      should validate_presence_of(:phone)
+      expect(organization).to validate_presence_of(:phone)
     end
 
     it "validate presence of status" do
-      should validate_presence_of(:status)
+      expect(organization).to validate_presence_of(:status)
     end
 
     it "validate presence of primary_name" do
-      should validate_presence_of(:primary_name)
+      expect(organization).to validate_presence_of(:primary_name)
     end
 
     it "validate presence of secondary_name" do
-      should validate_presence_of(:secondary_name)
+      expect(organization).to validate_presence_of(:secondary_name)
     end
 
     it "validate presence of secondary_phone" do
-      should validate_presence_of(:secondary_phone)
+      expect(organization).to validate_presence_of(:secondary_phone)
     end
     
     it "validate length of email" do
-      should validate_length_of(:email).
-      is_at_least(1).is_at_most(255)
+      expect(organization).to validate_length_of(:email).is_at_least(1).is_at_most(255)
     end
 
     it "validate length of name" do
-      should validate_length_of(:name).
-      is_at_least(1).is_at_most(255)
+      expect(organization).to validate_length_of(:name).is_at_least(1).is_at_most(255)
     end
 
     it "validate length of description" do
-      should validate_length_of(:description).
+      expect(organization).to validate_length_of(:description).
       is_at_most(1020)
     end
 
     it "validate uniqueness of email" do
-      should validate_uniqueness_of(:email).case_insensitive
+      expect(organization).to validate_uniqueness_of(:email).case_insensitive
     end
 
     it "validate uniqueness of name" do
-      should validate_uniqueness_of(:name).case_insensitive
+      expect(organization).to validate_uniqueness_of(:name).case_insensitive
     end
 
     it "rejects emails without @" do
