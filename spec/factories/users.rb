@@ -8,4 +8,9 @@ FactoryBot.define do
     role {"organization"}
     organization
   end
+
+  trait :admin do
+    role {"admin"}
+    admin
+  end
 end
