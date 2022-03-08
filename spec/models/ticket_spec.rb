@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
 
-  let(:ticket) { create(:ticket) } 
+  let(:ticket) { create(:ticket) }
+  let(:category) { create(:resource_category, unique_name:true) }
+  let(:organization) { create(:organization) }
+  let(:region) { create(:region, unique_name: true) }
 
   describe "attributes" do 
 
@@ -80,16 +83,71 @@ RSpec.describe Ticket, type: :model do
 
   end
 
-  # describe "scope" do
+  describe "scope" do
 
-  #   it ":open scope returns all open tickets"
-  #   it ":closed scope returns all closed tickets"
-  #   it ":all_organizations scope returns all organizations that have a ticket"
-  #   it ":organization scope returns all claimed tickets"
-  #   it ":closed_organization scope returns all closed tickets"
-  #   it ":region scope returns all regions that have tickets"
-  #   it ":resource_category scope returns all resource categories that have tickets"
+    it "ticket.open returns all open tickets with no org_id" do
+      # Create 3 tickets all closed: false, 2 with no org_id
+      # expect 2 from count of scope
+      # Change org_id of one ticket to nil
+      # expect 1 from count of scope
+    end
 
-  # end
+    it "ticket.closed returns all closed tickets" do
+      # create 3 tickets, one closed: true, two closed: false
+      # expect 1 from scope
+      #swap one of closed:false
+      # expect 2 from scope
+    end
+
+    it "ticket.all_organization returns all open tickets with an org_id" do
+      # create org with with org_id
+      organization = :organization
+      # create 3 tickets, two with org_id, one without org_id
+      # expect 2 from scope
+      # swap org_id to nil
+      # expect 1 from scope
+    end
+
+    it "ticket.organization(org_id) returns open tickets from that organization" do
+      # create org with with org_id
+      organization = :organization
+      # create 3 tickets, with different org_id than test org_id, all closed: false
+      # expect 0 from scope
+      # flip 2 tickets to same org_id
+      # expect 2 from scope
+      # flip 1 ticket with org_id to closed:true
+      # expect 1 from scope
+    end
+
+    it "ticket.closed_organization(org_id) returns closed tickets from that organization" do
+      # create org with with org_id
+      organization = :organization
+      # create 3 tickets, with different org_id than test org_id, all closed: true
+      # expect 0 from scope
+      # flip 2 tickets to same org_id
+      # expect 2 from scope
+      # flip 1 ticket with org_id to closed:false
+      # expect 1 from scope
+    end
+
+    it "ticket.region(reg_id) returns all tickets under that region" do
+      # create region with reg_id
+      region = :region
+      # create 3 tickets, 1 with same reg_id and 2 with different reg_id
+      # expect 1 from scope
+      # flip both other tickets to same reg_id
+      # expect 3 from scope
+    end
+
+    it "ticket.resource_category(cat_id) returns all tickets under that resource_category" do
+      # create resource_category with cat_id
+      category = :resource_category
+      # create 3 tickets, 2 with same cat_id and 1 with different cat_id
+      # expect 2 from scope
+      # switch 1 to different cat_id
+      # expect 1 from scope
+    end
+
+  end
 
 end
