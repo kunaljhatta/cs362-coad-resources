@@ -13,22 +13,22 @@ RSpec.describe Region, type: :model do
 
   describe "validations" do
     it "validates presence of name" do
-      should validate_presence_of(:name)
+      expect(region).to validate_presence_of(:name)
     end
 
     it "validates length of name" do
-      should validate_length_of(:name).
+      expect(region).to validate_length_of(:name).
         is_at_least(1).is_at_most(255)
     end
 
     it "validates uniqueness of name" do
-      should validate_uniqueness_of(:name).case_insensitive
+      expect(region).to validate_uniqueness_of(:name).case_insensitive
     end
   end
 
   describe "association" do
     it "Has many tickets" do
-      should have_many :tickets
+      expect(region).to have_many :tickets
     end
   end
 
