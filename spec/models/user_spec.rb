@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
   describe "validations" do
 
     describe "validates length of email" do
-      it { user.should validate_length_of(:email) }
+      it { expect(user).to validate_length_of(:email) }
     end
 
     it "validates email format" do
@@ -38,11 +38,11 @@ RSpec.describe User, type: :model do
     end
 
     describe "validates uniqueness of email" do
-      it { user.should validate_uniqueness_of(:email).case_insensitive }
+      it { expect(user).to validate_uniqueness_of(:email).case_insensitive }
     end
 
     describe "validates length of password" do
-      it { user.should validate_length_of(:password) }
+      it { expect(user).to validate_length_of(:password) }
     end
 
   end
@@ -50,7 +50,7 @@ RSpec.describe User, type: :model do
   describe "associations" do
 
     describe "may belong to organization" do
-      it { user.should belong_to(:organization) } 
+      it { expect(user).to belong_to(:organization) } 
     end
 
   end
