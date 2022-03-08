@@ -11,5 +11,6 @@ FactoryBot.define do
 
   trait :admin do
     role {"admin"}
+    organization 
   end
 end
