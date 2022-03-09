@@ -9,9 +9,15 @@ RSpec.describe 'Deleting a Ticket', type: :feature do
     log_in_as(admin)
     visit "/dashboard"
     expect(page).to have_text "Tickets"
+    ticket = create(:ticket)
+    visit "/tickets/1"
+    expect(page).to have_text "Delete"
 
-    # when: admin clicks 'delete'
-    # then: ticket should be deleted and admin is redirected to
-    #       the dashboard
+    # # when: admin clicks 'Delete'
+    click_on "Delete"
+
+    # then: ticket should be deleted and admin is redirected to the dashboard
+    expect(page).to have_text "was deleted."
+
   end
 end
