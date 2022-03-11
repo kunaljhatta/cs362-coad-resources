@@ -14,6 +14,8 @@ RSpec.describe 'Capturing a ticket', type: :feature do
     log_in_as(user)
     visit "/tickets/#{ticket.id}" 
     click_on "Release"
+    expect(ticket.captured?).to be_falsy
+
     visit "/tickets/#{ticket.id}" 
 
     # when: when capture button is clicked
@@ -22,7 +24,7 @@ RSpec.describe 'Capturing a ticket', type: :feature do
 
     # then: the ticket is captured and org user is redirected to dashboard/Tickets page
     #expect(ticket.captured?).to be_truthy
-    # expect(page).to have_text "Tickes"
+    #expect(page).to have_text "Tickes"
 
   end
 end
