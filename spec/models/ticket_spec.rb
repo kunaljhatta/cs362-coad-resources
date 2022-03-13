@@ -58,6 +58,22 @@ RSpec.describe Ticket, type: :model do
 
   describe "validations" do
 
+    it "validates presence of name" do
+      expect(ticket).to validate_presence_of(:name)
+    end
+
+    it "validates presence of phone" do
+      expect(ticket).to validate_presence_of(:phone)
+    end
+
+    it "validates presence of region_id" do
+      expect(ticket).to validate_presence_of(:region_id)
+    end
+
+    it "validates presence of resource_category_id" do
+      expect(ticket).to validate_presence_of(:resource_category_id)
+    end
+
     describe "validates length of name" do
       it { expect(ticket).to validate_length_of(:name) }
     end
