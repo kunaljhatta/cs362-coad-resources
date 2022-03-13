@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe Ticket, type: :model do
 
   let(:ticket) { create(:ticket) }
+  let(:captured_ticket) { build(:captured_ticket) }
   let(:category) { create(:resource_category, unique_name:true) }
-  let(:organization) { create(:organization) }
+  let(:organization) { build(:organization, unique_email: true) }
   let(:region) { create(:region, unique_name: true) }
 
   describe "attributes" do 
@@ -73,7 +74,6 @@ RSpec.describe Ticket, type: :model do
 
     it "checks if ticket is captured" do
       expect(ticket.captured?).to be_falsey
-      captured_ticket = build(:captured_ticket)
       expect(captured_ticket.captured?).to be_truthy
     end
 
@@ -113,19 +113,19 @@ RSpec.describe Ticket, type: :model do
       expect(Ticket.closed.count).to eq(2)
     end
 
-    # it "ticket.all_organization returns all open tickets with an org_id" do
-    #   # create 3 tickets, two with org_id, one without org_id
-    #   ticket1 = create(:captured_ticket)
-    #   ticket2 = create(:captured_ticket)
-    #   ticket3 = create(:ticket, organization_id: nil)
-    #   # expect 2 from scope
-    #   expect(Ticket.all_organization.count).to eq(2)
-    #   # swap org_id to nil
-    #   ticket2.organization=nil
-    #   ticket2.save!
-    #   # expect 1 from scope
-    #   expect(Ticket.all_organization.count).to eq(1)
-    # end
+    it "ticket.all_organization returns all open tickets with an org_id" do
+      # create 3 tickets, two with org_id, one without org_id
+      ticket1 = create(:ticket)
+      ticket2 = create(:ticket)
+      ticket3 = create(:ticket, organization_id: nil)
+      # expect 2 from scope
+      expect(Ticket.all_organization.count).to eq(2)
+      # swap org_id to nil
+      ticket2.organization=nil
+      ticket2.save!
+      # expect 1 from scope
+      expect(Ticket.all_organization.count).to eq(1)
+    end
 
     it "ticket.organization(org_id) returns open tickets from that organization" do
       # create 3 tickets, with different org_id than test org_id, all closed: false
