@@ -86,126 +86,126 @@ RSpec.describe Ticket, type: :model do
   describe "scope" do
 
     it "ticket.open returns all open tickets with no org_id" do
-      # Create 3 tickets all closed: false, 2 with no org_id
+      
       ticket1 = create(:ticket, organization_id: nil)
       ticket2 = create(:ticket, organization_id: nil)
       ticket3 = create(:ticket)
-      # expect 2 from count of scope
+      
       expect(Ticket.open.count).to eq(2)
-      # Change org_id of one ticket to nil
+      
       ticket2.organization_id=1
       ticket2.save!
-      # expect 1 from count of scope
+      
       expect(Ticket.open.count).to eq(1)
     end
 
     it "ticket.closed returns all closed tickets" do
-      # create 3 tickets, one closed: true, two closed: false
+      
       ticket1 = create(:closed_ticket)
       ticket2 = create(:ticket)
       ticket3 = create(:ticket)
-      # expect 1 from scope
+      
       expect(Ticket.closed.count).to eq(1)
-      #swap one of closed:false
+      
       ticket2.closed = true
       ticket2.save!
-      # expect 2 from scope
+      
       expect(Ticket.closed.count).to eq(2)
     end
 
     it "ticket.all_organization returns all open tickets with an org_id" do
-      # create 3 tickets, two with org_id, one without org_id
+      
       ticket1 = create(:ticket)
       ticket2 = create(:ticket)
       ticket3 = create(:ticket, organization_id: nil)
-      # expect 2 from scope
+      
       expect(Ticket.all_organization.count).to eq(2)
-      # swap org_id to nil
+      
       ticket2.organization=nil
       ticket2.save!
-      # expect 1 from scope
+      
       expect(Ticket.all_organization.count).to eq(1)
     end
 
     it "ticket.organization(org_id) returns open tickets from that organization" do
-      # create 3 tickets, with different org_id than test org_id, all closed: false
+      
       org = create(:organization)
       org_id = org.id
       ticket1 = create(:ticket, organization_id:2)
       ticket2 = create(:ticket, organization_id:2)
       ticket3 = create(:ticket, organization_id:2)
-      # expect 0 from scope
+      
       expect(Ticket.organization(org_id).count).to eq(0)
-      # flip 2 tickets to same org_id
-      # byebug
+      
+      
       ticket1.organization_id = org_id
       ticket1.save!
       ticket2.organization_id = org_id
       ticket2.save!
-      # expect 2 from scope
+      
       expect(Ticket.organization(org_id).count).to eq(2)
-      # flip 1 ticket with org_id to closed:true
+      
       ticket1.closed = true
       ticket1.save!
-      # expect 1 from scope
+      
       expect(Ticket.organization(org_id).count).to eq(1)
     end
 
     it "ticket.closed_organization(org_id) returns closed tickets from that organization" do
       org = create(:organization)
       org_id = org.id
-      # create 3 tickets, with different org_id than test org_id, all closed: true
+      
       ticket1 = create(:closed_ticket, organization_id:2)
       ticket2 = create(:closed_ticket, organization_id:2)
       ticket3 = create(:closed_ticket, organization_id:2)
-      # expect 0 from scope
+      
       expect(Ticket.closed_organization(org_id).count).to eq(0)
-      # flip 2 tickets to same org_id
+      
       ticket1.organization_id = org_id
       ticket1.save!
       ticket2.organization_id = org_id
       ticket2.save!
-      # expect 2 from scope
+      
       expect(Ticket.closed_organization(org_id).count).to eq(2)
-      # flip 1 ticket with org_id to closed:false
+      
       ticket1.closed = false
       ticket1.save!
-      # expect 1 from scope
+      
       expect(Ticket.closed_organization(org_id).count).to eq(1)
     end
 
     it "ticket.region(reg_id) returns all tickets under that region" do
-      # create 3 tickets, 1 with same reg_id and 2 with different reg_id
+      
       reg_id = region.id
       ticket1 = create(:ticket, region_id: reg_id)
       ticket2 = create(:ticket)
       ticket3 = create(:ticket)
-      # expect 1 from scope
+      
       expect(Ticket.region(reg_id).count).to eq(1)
-      # flip both other tickets to same reg_id
+      
       ticket2.region_id = reg_id
       ticket2.save!
       ticket3.region_id = reg_id
       ticket3.save!
-      # expect 3 from scope
+      
       expect(Ticket.region(reg_id).count).to eq(3)
     end
 
     it "ticket.resource_category(cat_id) returns all tickets under that resource_category" do
-      # create resource_category with cat_id
+      
       cat_id = category.id
       new_category = create(:resource_category, unique_name: true)
-      # create 3 tickets, 2 with same cat_id and 1 with different cat_id
+      
       ticket1 = create(:ticket, resource_category_id: cat_id)
       ticket2 = create(:ticket, resource_category_id: cat_id)
       ticket3 = create(:ticket, resource_category_id: new_category.id)
-      # expect 2 from scope
+      
       expect(Ticket.resource_category(cat_id).count).to eq(2)
-      # switch 1 to different cat_id
+      
       new_category = create(:resource_category, unique_name: true)
       ticket1.resource_category_id = new_category.id
       ticket1.save!
-      # expect 1 from scope
+      
       expect(Ticket.resource_category(cat_id).count).to eq(1)
     end
 
