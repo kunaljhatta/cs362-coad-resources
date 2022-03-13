@@ -87,30 +87,47 @@ RSpec.describe Ticket, type: :model do
 
     it "ticket.open returns all open tickets with no org_id" do
       # Create 3 tickets all closed: false, 2 with no org_id
+      ticket1 = create(:ticket, organization_id: nil)
+      ticket2 = create(:ticket, organization_id: nil)
+      ticket3 = create(:ticket)
       # expect 2 from count of scope
+      expect(Ticket.open.count).to eq(2)
       # Change org_id of one ticket to nil
+      ticket2.organization_id=1
+      ticket2.save!
       # expect 1 from count of scope
+      expect(Ticket.open.count).to eq(1)
     end
 
     it "ticket.closed returns all closed tickets" do
       # create 3 tickets, one closed: true, two closed: false
+      ticket1 = create(:closed_ticket)
+      ticket2 = create(:ticket)
+      ticket3 = create(:ticket)
       # expect 1 from scope
+      expect(Ticket.closed.count).to eq(1)
       #swap one of closed:false
+      ticket2.closed = true
+      ticket2.save!
       # expect 2 from scope
+      expect(Ticket.closed.count).to eq(2)
     end
 
-    it "ticket.all_organization returns all open tickets with an org_id" do
-      # create org with with org_id
-      organization = :organization
-      # create 3 tickets, two with org_id, one without org_id
-      # expect 2 from scope
-      # swap org_id to nil
-      # expect 1 from scope
-    end
+    # it "ticket.all_organization returns all open tickets with an org_id" do
+    #   # create 3 tickets, two with org_id, one without org_id
+    #   ticket1 = create(:captured_ticket)
+    #   ticket2 = create(:captured_ticket)
+    #   ticket3 = create(:ticket, organization_id: nil)
+    #   # expect 2 from scope
+    #   expect(Ticket.all_organization.count).to eq(2)
+    #   # swap org_id to nil
+    #   ticket2.organization=nil
+    #   ticket2.save!
+    #   # expect 1 from scope
+    #   expect(Ticket.all_organization.count).to eq(1)
+    # end
 
     it "ticket.organization(org_id) returns open tickets from that organization" do
-      # create org with with org_id
-      organization = :organization
       # create 3 tickets, with different org_id than test org_id, all closed: false
       # expect 0 from scope
       # flip 2 tickets to same org_id
@@ -120,8 +137,6 @@ RSpec.describe Ticket, type: :model do
     end
 
     it "ticket.closed_organization(org_id) returns closed tickets from that organization" do
-      # create org with with org_id
-      organization = :organization
       # create 3 tickets, with different org_id than test org_id, all closed: true
       # expect 0 from scope
       # flip 2 tickets to same org_id
@@ -149,5 +164,4 @@ RSpec.describe Ticket, type: :model do
     end
 
   end
-
 end
