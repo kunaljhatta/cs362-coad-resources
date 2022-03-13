@@ -1,3 +1,5 @@
+# A resource category describes a type of resource that can be provided by an organization. 
+
 class ResourceCategory < ApplicationRecord
 
   has_and_belongs_to_many :organizations

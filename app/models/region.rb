@@ -1,3 +1,5 @@
+# A region describes the location that a ticket or user might be located in.
+
 class Region < ApplicationRecord
 
   has_many :tickets

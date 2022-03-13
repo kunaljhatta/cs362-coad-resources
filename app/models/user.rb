@@ -1,3 +1,7 @@
+# A user can be pending approval or belong to an organization and claim or release tickets.
+# A user might be an admin who can delete tickets and do anything.
+
+
 class User < ApplicationRecord
 
   enum role: [:admin, :organization]
