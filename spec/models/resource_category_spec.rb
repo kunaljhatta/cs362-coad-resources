@@ -25,7 +25,7 @@ RSpec.describe ResourceCategory, type: :model do
     end
     
     it "has a name" do
-      expect(ResourceCategory).to respond_to(:name)
+      expect(build_cat).to respond_to(:name)
     end
   end
 

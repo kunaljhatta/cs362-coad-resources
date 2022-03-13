@@ -10,6 +10,30 @@ RSpec.describe Ticket, type: :model do
 
   describe "attributes" do 
 
+    it "has a name" do
+      expect(ticket).to respond_to(:name)
+    end
+
+    it "has a description" do
+      expect(ticket).to respond_to(:description)
+    end
+
+    it "has a phone" do
+      expect(ticket).to respond_to(:phone)
+    end
+
+    it "has a organization_id" do
+      expect(ticket).to respond_to(:organization_id)
+    end
+
+    it "has a resource_category_id" do
+      expect(ticket).to respond_to(:resource_category_id)
+    end
+
+    it "has a region_id" do
+      expect(ticket).to respond_to(:region_id)
+    end
+
     it "is valid with valid attributes" do
       expect(ticket).to be_valid
     end
