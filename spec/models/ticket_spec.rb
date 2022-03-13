@@ -152,30 +152,61 @@ RSpec.describe Ticket, type: :model do
     end
 
     it "ticket.closed_organization(org_id) returns closed tickets from that organization" do
+      org = create(:organization)
+      org_id = org.id
       # create 3 tickets, with different org_id than test org_id, all closed: true
+      ticket1 = create(:closed_ticket, organization_id:2)
+      ticket2 = create(:closed_ticket, organization_id:2)
+      ticket3 = create(:closed_ticket, organization_id:2)
       # expect 0 from scope
+      expect(Ticket.closed_organization(org_id).count).to eq(0)
       # flip 2 tickets to same org_id
+      ticket1.organization_id = org_id
+      ticket1.save!
+      ticket2.organization_id = org_id
+      ticket2.save!
       # expect 2 from scope
+      expect(Ticket.closed_organization(org_id).count).to eq(2)
       # flip 1 ticket with org_id to closed:false
+      ticket1.closed = false
+      ticket1.save!
       # expect 1 from scope
+      expect(Ticket.closed_organization(org_id).count).to eq(1)
     end
 
     it "ticket.region(reg_id) returns all tickets under that region" do
-      # create region with reg_id
-      region = :region
       # create 3 tickets, 1 with same reg_id and 2 with different reg_id
+      reg_id = region.id
+      ticket1 = create(:ticket, region_id: reg_id)
+      ticket2 = create(:ticket)
+      ticket3 = create(:ticket)
       # expect 1 from scope
+      expect(Ticket.region(reg_id).count).to eq(1)
       # flip both other tickets to same reg_id
+      ticket2.region_id = reg_id
+      ticket2.save!
+      ticket3.region_id = reg_id
+      ticket3.save!
       # expect 3 from scope
+      expect(Ticket.region(reg_id).count).to eq(3)
     end
 
     it "ticket.resource_category(cat_id) returns all tickets under that resource_category" do
       # create resource_category with cat_id
-      category = :resource_category
+      cat_id = category.id
+      new_category = create(:resource_category, unique_name: true)
       # create 3 tickets, 2 with same cat_id and 1 with different cat_id
+      ticket1 = create(:ticket, resource_category_id: cat_id)
+      ticket2 = create(:ticket, resource_category_id: cat_id)
+      ticket3 = create(:ticket, resource_category_id: new_category.id)
       # expect 2 from scope
+      expect(Ticket.resource_category(cat_id).count).to eq(2)
       # switch 1 to different cat_id
+      new_category = create(:resource_category, unique_name: true)
+      ticket1.resource_category_id = new_category.id
+      ticket1.save!
       # expect 1 from scope
+      expect(Ticket.resource_category(cat_id).count).to eq(1)
     end
 
   end
