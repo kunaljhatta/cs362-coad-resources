@@ -3,7 +3,6 @@
 # A ticket can be claimed by an organization that intends to address the issue 
 # and it can be closed once the issue is resolved. 
 
-
 class Ticket < ApplicationRecord
 
   belongs_to :region
