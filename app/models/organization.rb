@@ -1,4 +1,5 @@
 # An organization is a group that users can belong to if approved, that has different privileges.
+# An organization has users who have tickets. 
 
 class Organization < ApplicationRecord
 
