@@ -38,10 +38,10 @@ RSpec.describe TicketsController, type: :controller do
   
   describe "an approved organization user" do
     it "redirects to the dashboard" do
-      unapproved_org_user = create(:user, :organization_user)
-      unapproved_org_user.organization.approve
-      expect(unapproved_org_user.organization.status).to eq("approved")
-      sign_in(unapproved_org_user)
+      approved_org_user = create(:user, :organization_user)
+      approved_org_user.organization.approve
+      expect(approved_org_user.organization.status).to eq("approved")
+      sign_in(approved_org_user)
 
       delete :destroy, params: {id: 'fake'}
       expect(response).to redirect_to("http://test.host/users/sign_in")
