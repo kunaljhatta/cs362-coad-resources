@@ -82,7 +82,16 @@ RSpec.describe ResourceCategory, type: :model do
       fake_name = build_cat.name
       expect(build_cat.to_s).to eq(fake_name)
     end
+  end
 
+  describe "static methods" do
+    it "using unspecified will return category with name 'Unspecified'" do
+      expect(ResourceCategory.unspecified.name).to eq("Unspecified")
+    end
+  end
+
+  describe "scope" do
+    
     it ":active scope returns all active Resource categories" do
       cat1 = create(:resource_category, unique_name: true)
       cat2 = create(:resource_category, unique_name: true)
@@ -107,12 +116,6 @@ RSpec.describe ResourceCategory, type: :model do
       cat2.deactivate
       
       expect(ResourceCategory.inactive.count).to eq(2)
-    end
-
-  end
-  describe "static methods" do
-    it "using unspecified will return category with name 'Unspecified'" do
-      expect(ResourceCategory.unspecified.name).to eq("Unspecified")
     end
   end
 end
