@@ -2,9 +2,37 @@ require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
 
-  let(:ticket) { create(:ticket) } 
+  let(:ticket) { create(:ticket) }
+  let(:captured_ticket) { build(:captured_ticket) }
+  let(:category) { create(:resource_category, unique_name:true) }
+  let(:organization) { build(:organization, unique_email: true) }
+  let(:region) { create(:region, unique_name: true) }
 
   describe "attributes" do 
+
+    it "has a name" do
+      expect(ticket).to respond_to(:name)
+    end
+
+    it "has a description" do
+      expect(ticket).to respond_to(:description)
+    end
+
+    it "has a phone" do
+      expect(ticket).to respond_to(:phone)
+    end
+
+    it "has a organization_id" do
+      expect(ticket).to respond_to(:organization_id)
+    end
+
+    it "has a resource_category_id" do
+      expect(ticket).to respond_to(:resource_category_id)
+    end
+
+    it "has a region_id" do
+      expect(ticket).to respond_to(:region_id)
+    end
 
     it "is valid with valid attributes" do
       expect(ticket).to be_valid
@@ -29,6 +57,22 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe "validations" do
+
+    it "validates presence of name" do
+      expect(ticket).to validate_presence_of(:name)
+    end
+
+    it "validates presence of phone" do
+      expect(ticket).to validate_presence_of(:phone)
+    end
+
+    it "validates presence of region_id" do
+      expect(ticket).to validate_presence_of(:region_id)
+    end
+
+    it "validates presence of resource_category_id" do
+      expect(ticket).to validate_presence_of(:resource_category_id)
+    end
 
     describe "validates length of name" do
       it { expect(ticket).to validate_length_of(:name) }
@@ -70,7 +114,6 @@ RSpec.describe Ticket, type: :model do
 
     it "checks if ticket is captured" do
       expect(ticket.captured?).to be_falsey
-      captured_ticket = build(:captured_ticket)
       expect(captured_ticket.captured?).to be_truthy
     end
 
@@ -80,16 +123,131 @@ RSpec.describe Ticket, type: :model do
 
   end
 
-  # describe "scope" do
+  describe "scope" do
 
-  #   it ":open scope returns all open tickets"
-  #   it ":closed scope returns all closed tickets"
-  #   it ":all_organizations scope returns all organizations that have a ticket"
-  #   it ":organization scope returns all claimed tickets"
-  #   it ":closed_organization scope returns all closed tickets"
-  #   it ":region scope returns all regions that have tickets"
-  #   it ":resource_category scope returns all resource categories that have tickets"
+    it "ticket.open returns all open tickets with no org_id" do
+      
+      ticket1 = create(:ticket, organization_id: nil)
+      ticket2 = create(:ticket, organization_id: nil)
+      ticket3 = create(:ticket)
+      
+      expect(Ticket.open.count).to eq(2)
+      
+      ticket2.organization_id=1
+      ticket2.save!
+      
+      expect(Ticket.open.count).to eq(1)
+    end
 
-  # end
+    it "ticket.closed returns all closed tickets" do
+      
+      ticket1 = create(:closed_ticket)
+      ticket2 = create(:ticket)
+      ticket3 = create(:ticket)
+      
+      expect(Ticket.closed.count).to eq(1)
+      
+      ticket2.closed = true
+      ticket2.save!
+      
+      expect(Ticket.closed.count).to eq(2)
+    end
 
+    it "ticket.all_organization returns all open tickets with an org_id" do
+      
+      ticket1 = create(:ticket)
+      ticket2 = create(:ticket)
+      ticket3 = create(:ticket, organization_id: nil)
+      
+      expect(Ticket.all_organization.count).to eq(2)
+      
+      ticket2.organization=nil
+      ticket2.save!
+      
+      expect(Ticket.all_organization.count).to eq(1)
+    end
+
+    it "ticket.organization(org_id) returns open tickets from that organization" do
+      
+      org = create(:organization)
+      org_id = org.id
+      ticket1 = create(:ticket, organization_id:2)
+      ticket2 = create(:ticket, organization_id:2)
+      ticket3 = create(:ticket, organization_id:2)
+      
+      expect(Ticket.organization(org_id).count).to eq(0)
+      
+      
+      ticket1.organization_id = org_id
+      ticket1.save!
+      ticket2.organization_id = org_id
+      ticket2.save!
+      
+      expect(Ticket.organization(org_id).count).to eq(2)
+      
+      ticket1.closed = true
+      ticket1.save!
+      
+      expect(Ticket.organization(org_id).count).to eq(1)
+    end
+
+    it "ticket.closed_organization(org_id) returns closed tickets from that organization" do
+      org = create(:organization)
+      org_id = org.id
+      
+      ticket1 = create(:closed_ticket, organization_id:2)
+      ticket2 = create(:closed_ticket, organization_id:2)
+      ticket3 = create(:closed_ticket, organization_id:2)
+      
+      expect(Ticket.closed_organization(org_id).count).to eq(0)
+      
+      ticket1.organization_id = org_id
+      ticket1.save!
+      ticket2.organization_id = org_id
+      ticket2.save!
+      
+      expect(Ticket.closed_organization(org_id).count).to eq(2)
+      
+      ticket1.closed = false
+      ticket1.save!
+      
+      expect(Ticket.closed_organization(org_id).count).to eq(1)
+    end
+
+    it "ticket.region(reg_id) returns all tickets under that region" do
+      
+      reg_id = region.id
+      ticket1 = create(:ticket, region_id: reg_id)
+      ticket2 = create(:ticket)
+      ticket3 = create(:ticket)
+      
+      expect(Ticket.region(reg_id).count).to eq(1)
+      
+      ticket2.region_id = reg_id
+      ticket2.save!
+      ticket3.region_id = reg_id
+      ticket3.save!
+      
+      expect(Ticket.region(reg_id).count).to eq(3)
+    end
+
+    it "ticket.resource_category(cat_id) returns all tickets under that resource_category" do
+      
+      cat_id = category.id
+      new_category = create(:resource_category, unique_name: true)
+      
+      ticket1 = create(:ticket, resource_category_id: cat_id)
+      ticket2 = create(:ticket, resource_category_id: cat_id)
+      ticket3 = create(:ticket, resource_category_id: new_category.id)
+      
+      expect(Ticket.resource_category(cat_id).count).to eq(2)
+      
+      new_category = create(:resource_category, unique_name: true)
+      ticket1.resource_category_id = new_category.id
+      ticket1.save!
+      
+      expect(Ticket.resource_category(cat_id).count).to eq(1)
+    end
+
+  end
 end

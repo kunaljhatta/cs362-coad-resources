@@ -22,8 +22,12 @@ RSpec.describe User, type: :model do
 
   describe "validations" do
 
-    describe "validates length of email" do
-      it { expect(user).to validate_length_of(:email) }
+    it "validates presence of email" do
+      expect(user).to validate_presence_of(:email)
+    end
+
+    it "validates length of email" do
+      expect(user).to validate_length_of(:email)
     end
 
     it "validates email format" do
@@ -37,12 +41,12 @@ RSpec.describe User, type: :model do
       expect(build(:user, email:'icon"@fake.fake')).to be_invalid
     end
 
-    describe "validates uniqueness of email" do
-      it { expect(user).to validate_uniqueness_of(:email).case_insensitive }
+    it "validates uniqueness of email" do
+      expect(user).to validate_uniqueness_of(:email).case_insensitive
     end
 
-    describe "validates length of password" do
-      it { expect(user).to validate_length_of(:password) }
+    it "validates length of password" do
+      expect(user).to validate_length_of(:password)
     end
 
   end

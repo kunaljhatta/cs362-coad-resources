@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
+  
   let(:build_cat) { build(:resource_category) }
   let(:stubbed_cat) { build_stubbed(:resource_category) }
   let(:stubbed_inactive) { build_stubbed(:inactive) }
@@ -21,7 +22,11 @@ RSpec.describe ResourceCategory, type: :model do
     it "category requires name is unique" do
       category_name = create_cat.name
       expect(build_cat).to be_invalid
-    end  
+    end
+    
+    it "has a name" do
+      expect(build_cat).to respond_to(:name)
+    end
   end
 
   describe "associations" do
