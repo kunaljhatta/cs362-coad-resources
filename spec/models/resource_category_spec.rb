@@ -6,7 +6,6 @@ RSpec.describe ResourceCategory, type: :model do
   let(:stubbed_cat) { build_stubbed(:resource_category) }
   let(:stubbed_inactive) { build_stubbed(:inactive) }
   let(:create_cat) { create(:resource_category) }
-  let(:unspecified) { ResourceCategory.unspecified }
   let(:inactive) { build(:inactive)}
 
   describe "attributes" do
@@ -47,11 +46,7 @@ RSpec.describe ResourceCategory, type: :model do
     it { expect(build_cat).to validate_uniqueness_of(:name).case_insensitive }
   end
 
-
   describe "method" do
-    it "using unspecified will return category with name 'Unspecified'" do
-      expect(unspecified.name).to eq("Unspecified")
-    end
 
     it "using activate method will set active to true" do
       inactive.activate
@@ -70,6 +65,8 @@ RSpec.describe ResourceCategory, type: :model do
     it "inactive? returns false when active is true" do
       build_cat.active = true
       expect(build_cat.inactive?).to be_falsy
+      build_cat.active = false
+      expect(build_cat.inactive?).to be_truthy
     end
 
     it "active? returns true when category is active" do
@@ -112,5 +109,10 @@ RSpec.describe ResourceCategory, type: :model do
       expect(ResourceCategory.inactive.count).to eq(2)
     end
 
+  end
+  describe "static methods" do
+    it "using unspecified will return category with name 'Unspecified'" do
+      expect(ResourceCategory.unspecified.name).to eq("Unspecified")
+    end
   end
 end

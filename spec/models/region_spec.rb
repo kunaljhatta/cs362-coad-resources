@@ -32,12 +32,18 @@ RSpec.describe Region, type: :model do
     end
   end
 
-  describe "#to_s" do
-    it "returns the name" do
+  describe "methods" do
+    it "#to_s returns the name" do
       name = 'Mt. Hood'
       region = Region.new(name: name)
       expect(region.to_s).to eq(name)
     end
   end
 
+  describe "static methods" do
+    it "finds or creates a Region with the name 'Unspecified'" do
+      expect(Region.unspecified.name).to eq('Unspecified')
+    end
+
+  end
 end
