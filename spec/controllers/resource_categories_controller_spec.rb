@@ -99,7 +99,6 @@ RSpec.describe ResourceCategoriesController, type: :controller do
       
       get :create, params: { :resource_category => { name:nil } }
       expect(response).to be_ok
-      puts "hash cat: #{hash_cat}"
       post :create, params: { :resource_category => hash_cat}
       expect(response).to be_redirect
     end
